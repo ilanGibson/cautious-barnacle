@@ -1,46 +1,31 @@
-use rand::Rng;
-use rand::distributions::Alphanumeric;
-use rocket::response::Redirect;
-use rocket::http::CookieJar;
+use rocket::fs::NamedFile;
+use std::path::Path;
+use std::path::PathBuf;
+
 
 #[macro_use] extern crate rocket;
 
-
-fn generate_random_string(length: usize) -> String {
-    let rng = rand::thread_rng();
-    let random_string: String = rng
-        .sample_iter(&Alphanumeric)
-        .take(length)
-        .map(char::from)
-        .collect();
-    random_string
+#[get("/<file..>", rank = 2)] // Define a catch-all route for serving static files
+async fn static_files(file: PathBuf) -> Option<NamedFile> {
+    NamedFile::open(Path::new("static/").join(file)).await.ok()
 }
 
-
-async fn generate_code_challenge() -> String {
-    let code_verifier: String = generate_random_string(64);
-
-    code_verifier
+#[get("/")]
+async fn index() -> Option<NamedFile> {
+    NamedFile::open("static/index.html").await.ok()
 }
-
 
 #[get("/world")]
-async fn world(cookies: &CookieJar<'_>) -> Redirect {
-    let code = generate_code_challenge().await;
-    cookies.add(("message", code));
-    Redirect::to(uri!(index))
-}
-
-#[get("/index")]
-fn index(cookies: &CookieJar<'_>) -> Option<String> {
-    cookies.get("message").map(|crumb| format!("Message: {}", crumb.value()))
+fn world() -> &'static str {
+    "Hello, world!"
 }
 
 // #[tokio::main]
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
+    // let static_files = StaticFiles::from("./static/script.js");
     let _rocket = rocket::build()
-        .mount("/", routes![world, index])
+        .mount("/", routes![world, index, static_files])
         .launch()
         .await?;
 
