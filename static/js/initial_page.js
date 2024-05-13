@@ -69,7 +69,7 @@ const getToken = async () => {
   const response = await body.json();
 
   localStorage.setItem('access_token', response.access_token);
-  window.location.href = "http://127.0.0.1:8000/world";
+  window.location.href = "http://127.0.0.1:8000/game";
 }
 
 document.addEventListener('DOMContentLoaded', () => {
