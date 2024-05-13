@@ -12,20 +12,21 @@ async fn static_files(file: PathBuf) -> Option<NamedFile> {
 
 #[get("/")]
 async fn index() -> Option<NamedFile> {
-    NamedFile::open("static/index.html").await.ok()
+    NamedFile::open("static/html/initial_page.html").await.ok()
 }
 
-#[get("/world")]
-fn world() -> &'static str {
-    "Hello, world!"
+#[get("/<code>")]
+async fn my_handler(code: &str) -> Option<NamedFile> {
+    println!("code: {}", code);
+    NamedFile::open("static/html/initial_page.html").await.ok()
 }
+
 
 // #[tokio::main]
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
-    // let static_files = StaticFiles::from("./static/script.js");
     let _rocket = rocket::build()
-        .mount("/", routes![world, index, static_files])
+        .mount("/", routes![index, static_files, my_handler])
         .launch()
         .await?;
 
