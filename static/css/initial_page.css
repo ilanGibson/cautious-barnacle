@@ -1,0 +1,30 @@
+body {
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#login {
+    visibility: visible;
+    width: 150px;
+}
+
+#game {
+    visibility: hidden;
+    width: 150px;
+}
