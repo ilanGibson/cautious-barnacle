@@ -21,12 +21,16 @@ async fn my_handler(code: &str) -> Option<NamedFile> {
     NamedFile::open("static/html/initial_page.html").await.ok()
 }
 
+#[get("/world")]
+async fn world() -> &'static str {
+    "Hello, world!"
+}
 
 // #[tokio::main]
 #[rocket::main]
 async fn main() -> Result<(), rocket::Error> {
     let _rocket = rocket::build()
-        .mount("/", routes![index, static_files, my_handler])
+        .mount("/", routes![index, static_files, my_handler, world])
         .launch()
         .await?;
 

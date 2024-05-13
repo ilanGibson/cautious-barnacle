@@ -44,30 +44,65 @@ const authorizeSpotify = async () => {
   window.location.href = authUrl.toString();
 }
 
+const getToken = async () => {
+  let codeVerifier = localStorage.getItem('code_verifier');
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('code');
+  const url = "https://accounts.spotify.com/api/token";
+
+  const payload = {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      client_id: "72ae29791cf14328b43c1c1c03fa19e8",
+      client_secret: "989c4fcf4a6140ebb90131b6c433ac9d",
+      grant_type: "authorization_code",
+      code,
+      redirect_uri: "http://127.0.0.1:8000",
+      code_verifier: codeVerifier,
+    }),
+  }
+
+  const body = await fetch(url, payload);
+  const response = await body.json();
+
+  localStorage.setItem('access_token', response.access_token);
+  window.location.href = "http://127.0.0.1:8000/world";
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // add event listener to the login button
   // when the button is clicked, the user will be redirected to the Spotify login page
   // when the button is clicked, isPlayGameButtonHidden will be set to false
   // (so that the game button is visible when user is redirect back to the app)
-  const button = document.getElementById('login');
-  button.addEventListener('click', authorizeSpotify);
-  button.addEventListener('click', function() {
+  const login_button = document.getElementById('login');
+  login_button.addEventListener('click', authorizeSpotify);
+  login_button.addEventListener('click', function() {
     localStorage.setItem('isPlayGameButtonHidden', 'false');
   });
+
+  const play_button = document.getElementById('game');
+  play_button.addEventListener('click', getToken);
+
 
   // check if the user is already logged in
   // if the user is already logged in, the login button will be hidden
   // and the game button will be visible
   var isPlayGameButtonHidden = localStorage.getItem('isPlayGameButtonHidden');
   var codeVerifier = localStorage.getItem('code_verifier');
+  // const urlParams = new URLSearchParams(window.location.search);
+  // const code = urlParams.get('code');
 
   if (isPlayGameButtonHidden === 'false' && codeVerifier !== null) {
     document.getElementById('login').style.visibility = 'hidden';
     document.getElementById('game').style.visibility = 'visible';
+
   } else {
     document.getElementById('login').style.visibility = 'visible';
     document.getElementById('game').style.visibility = 'hidden';
   }
 
-  
+
 });
