@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+    <title>Spotify Game</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/game_page.css">
+    <script src="../js/game_page.js"></script>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script src="../js/spotifyPlayerSetup.js"></script>
+</head>
+<body>
+
+
+
+    <h1>Spotify Game (needs new name)</h1>
+    <label class="switch">
+        <input id="status" type="checkbox" unchecked>
+        <span class="slider round"></span>
+    </label>
+    <button id="togglePlay">Play/Pause</button>
+    <button id="nextTrack">Skip Forward</button>
+    <button id="previousTrack">Skip Back</button>
+    <br>
+    <label for="songGuess">Guess the Song (only song title):</label>
+    <input type="text" id="songGuessInput" name="songGuess" placeholder='Clementine, Yung Gravy' required>
+    <ul id="suggestions"></ul>
+    <input type="submit" id="sendGuess" value="Guess"/>
+    <h2 id="win_lose_notification"></h2>
+    
+</body>
+</html>

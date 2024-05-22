@@ -26,7 +26,7 @@ const authorizeSpotify = async () => {
   const clientId = "72ae29791cf14328b43c1c1c03fa19e8";
   const redirctUri = "http://127.0.0.1:8000";
 
-  const scope = "user-read-private user-read-email";
+  const scope = "streaming user-read-private user-read-email";
   const authUrl = new URL("https://accounts.spotify.com/authorize");
 
   localStorage.setItem("code_verifier", codeVerifier);
@@ -38,6 +38,7 @@ const authorizeSpotify = async () => {
     code_challenge_method: 'S256',
     codeChallenge: codeChallenge,
     redirect_uri: redirctUri,
+    show_dialog: true,
   }
 
   authUrl.search = new URLSearchParams(params).toString();

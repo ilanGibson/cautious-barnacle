@@ -1,0 +1,18 @@
+[package]
+name = "spotify_game"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.8.4"
+ring = "0.16"
+tokio = {version = "1", features = ["full"]}
+base64 = "0.13"
+url = "2.2"
+serde = "1.0.202"
+
+[dependencies.rocket]
+version = "0.5.0-rc.1"
+features = ["json"]
