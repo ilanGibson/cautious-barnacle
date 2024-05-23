@@ -1,0 +1,70 @@
+body {
+    background-color: #3ea498;
+    margin: 0px;
+    padding: 0px;
+    display: block;
+}
+
+header {
+    position: sticky;
+    top: 0px;
+    background-color: #3677a1;
+    /* opacity: .8; */
+    color: white;
+    font-size: 30px;
+    height: 75px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 0px;
+    padding-top: 5px;
+}
+
+.grid-container {
+    border: 2px solid red;
+    height: 1fr;
+    width: 1fr;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.album_art {
+    height: 450px;
+    width: 450px;
+    border: 2px solid white;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.guess_input {
+    text-align: center;
+}
+
+.song_guess_input {
+    height: 20px;
+    width: 300px;
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+    /* margin-bottom: 20px; */
+    border: 1px solid white;
+    background-color: #3ea498;
+}
+
+.song_guess_input::placeholder {
+    color: #3677a1;
+}
+
+.test {
+    margin: 0px;
+    margin-bottom: 20px;
+    padding: 0;
+    /* visibility: hidden; */
+}
+
+.test:hover {
+    visibility: visible;
+}
