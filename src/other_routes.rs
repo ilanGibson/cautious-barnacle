@@ -3,7 +3,7 @@ use rocket::Route;
 
 #[get("/game")]
 async fn serve_game_page() -> Option<NamedFile> {
-    NamedFile::open("static/html/game_page.html").await.ok()
+    NamedFile::open("static/html/game_page_test.html").await.ok()
 }
 
 
