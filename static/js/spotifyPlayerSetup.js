@@ -78,7 +78,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     });
 
 
-    document.getElementById('togglePlay').onclick = function() {
+    document.getElementById('toggle_play_button').onclick = function() {
         player.getCurrentState().then(state => {
             if (!state) {
                 console.error('User is not playing music through the Web Playback SDK');
@@ -92,7 +92,8 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         player.togglePlay();
     };
 
-    document.getElementById('nextTrack').onclick = function() {
+    document.getElementById('skip_forward_button').onclick = function() {
+        document.getElementById('album_art').style.background = 'none';
         player.nextTrack();
         player.getCurrentState().then(state => {
             if (!state) {
@@ -106,7 +107,7 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         })
     }
 
-    document.getElementById('previousTrack').onclick = function() {
+    document.getElementById('skip_back_button').onclick = function() {
         player.previousTrack();
         player.getCurrentState().then(state => {
             if (!state) {
@@ -120,9 +121,21 @@ window.onSpotifyWebPlaybackSDKReady = () => {
         })
     }
 
-    document.getElementById('sendGuess').onclick = function() {
-        const guess = document.getElementById('songGuessInput').value;
-        sendCurrentGuess(player, guess);
+    // document.getElementById('sendGuess').onclick = function() {
+    //     const guess = document.getElementById('songGuessInput').value;
+    //     sendCurrentGuess(player, guess);
+    // }
+
+    document.getElementById('album_art').onclick = function() {
+        player.getCurrentState().then(state => {
+            if (!state) {
+                console.error('User is not playing music through the Web Playback SDK');
+                return;
+            } else {
+                document.getElementById('album_art').style.background = `url(${state.track_window.current_track.album.images[2].url}) no-repeat center center / cover`;
+                console.log(state);
+            }
+        })
     }
 
     // connect to player and give buttons ability to control player
